@@ -1,9 +1,13 @@
 # Line
 line - bypass dpi
 
+![dbca38664cb14af1](https://github.com/user-attachments/assets/04fecf40-67cc-49b4-b15d-1c09b51e3f81)
+
 ## Описание
 
 Line — это удобный и простой в использовании инструмент, который поможет вам обойти DPI и улучшить доступ к YouTube. Программа предоставляет графический интерфейс для [zapret](https://github.com/bol-van/zapret), разработанной [bol-van](https://github.com/bol-van), и добавляет новые функции, такие как автозапуск, автообновление и уникальная система конфигов.
+
+![Снимок экрана 2025-01-08 071445](https://github.com/user-attachments/assets/33292e6d-e330-49eb-a404-4c2f3134580b)
 
 ## Основные Функции
 
