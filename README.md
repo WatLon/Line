@@ -1,5 +1,5 @@
 # Line
-line - bypass dpi
+line - bypass dpi, multifunctional GUI for zapret
 
 ## Описание
 
@@ -73,7 +73,7 @@ TEMP/
 После запуска программы в системной папке Temp создаться папка zapret в которой сгенерируются шрифты, картинки и конфиг. Вместе с этим с офф репа билда [zapret](https://github.com/bol-van/zapret-win-bundle) выкачется winws.exe и все файлы нужные для его работы.
 
 ## Конфига
-Если у вас не работает youtube/discord при включенной программе, вы уверенны что все установили правильно и в браузере поставили нужные флаги Kyber и QUIC в default (chrome://flags/), то попробуйте загрузить поочередно конфиги.
+Если у вас не работает youtube/discord при включенной программе, вы уверенны что все установили правильно и в браузере поставили нужные флаги Kyber и QUIC в default (chrome://flags/), то попробуйте загрузить поочередно [конфиги](https://github.com/Read1dno/Line/tree/main/config).
 
 ### Порядок действий:
 1. Выключите работу обхода: `connected -> connect`
