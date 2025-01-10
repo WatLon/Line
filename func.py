@@ -20,6 +20,13 @@ def toggle_connection(state):
         if state:
             start_winws()
 
+def stop_windivert_service():
+    try:
+        process = subprocess.Popen('sc stop windivert', shell=True, creationflags=subprocess.CREATE_NO_WINDOW)
+        process.wait()
+    except Exception as e:
+        pass
+
 def start_winws():
     os.system('@echo off')
     os.system('chcp 65001 >nul')

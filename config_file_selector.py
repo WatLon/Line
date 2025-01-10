@@ -47,7 +47,7 @@ class ConfigFileSelector(QWidget):
         for url in event.mimeData().urls():
             file_path = url.toLocalFile()
             if file_path.endswith(('.cfg', '.txt')):
-                self.label.setText(file_path)
+                self.label.setText("Success")
                 event.acceptProposedAction()
                 self.display_file_path(file_path)
 
@@ -55,7 +55,7 @@ class ConfigFileSelector(QWidget):
         if event.button() == Qt.LeftButton:
             file_path, _ = QFileDialog.getOpenFileName(self, "Choose config file", "", "Config Files (*.cfg *.txt)")
             if file_path:
-                self.label.setText(file_path)
+                self.label.setText("Success")
                 self.display_file_path(file_path)
 
     def display_file_path(self, file_path):

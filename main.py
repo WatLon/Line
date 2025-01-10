@@ -70,7 +70,8 @@ class MainWindow(QMainWindow):
 
 if __name__ == "__main__":
     elevate.elevate(show_console=False)
-    update.check_and_update(update=False)
+    func.stop_windivert_service()
+    update.check_and_update(update=False) # delete to avoid uploading files
     config_file_path = os.path.join(tempfile.gettempdir(), 'zapret', 'scr', 'config.cfg')
     config = configparser.ConfigParser()
     config.read(config_file_path)
