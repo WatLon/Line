@@ -3,7 +3,7 @@ import configparser
 import subprocess
 import shutil
 import psutil
-import winreg
+from win32com.client import Dispatch
 import os
 
 def toggle_connection(state):
@@ -39,18 +39,22 @@ def start_winws():
 
     subprocess.Popen(command, creationflags=subprocess.CREATE_NO_WINDOW)
 
-def set_autostart(state):
-    script_path = os.path.abspath(sys.argv[0])
-    key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Software\Microsoft\Windows\CurrentVersion\Run", 0, winreg.KEY_SET_VALUE)
-    if state:
-        winreg.SetValueEx(key, "Line - bypass dpi", 0, winreg.REG_SZ, script_path)
-    else:
-        try:
-            winreg.DeleteValue(key, "Line - bypass dpi")
-        except FileNotFoundError:
-            pass
+def create_shortcut(target, shortcut_path):
+    shell = Dispatch('WScript.Shell')
+    shortcut = shell.CreateShortCut(shortcut_path)
+    shortcut.Targetpath = target
+    shortcut.WorkingDirectory = os.path.dirname(target)
+    shortcut.save()
 
-    winreg.CloseKey(key)
+def set_autostart(state):
+    script_path = os.path.abspath(sys.executable)
+    shortcut_path = os.path.join(os.path.expanduser("~"), "AppData", "Roaming", "Microsoft", "Windows", "Start Menu", "Programs", "Startup", "Line - bypass dpi.lnk")
+
+    if state:
+        create_shortcut(script_path, shortcut_path)
+    else:
+        if os.path.exists(shortcut_path):
+            os.remove(shortcut_path)
 
 def select_config(file_path):
     file_name = os.path.basename(file_path)
