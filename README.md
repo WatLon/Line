@@ -1,4 +1,4 @@
-# Line
+# Line C++ Version
 line - bypass dpi, multifunctional GUI for zapret
 
 ## Описание
