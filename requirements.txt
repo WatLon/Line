@@ -1,4 +1,0 @@
-PySide6
-psutil
-requests
-pywin32
