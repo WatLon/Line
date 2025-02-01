@@ -10,9 +10,33 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     dragging = false;
     closeFromTray = false;
-    winwsPath = "bin/winws.exe";
+    winwsPath = "./bin/winws.exe";
     winwsArgs = config->value("Winws/arguments").toString().split(" ");
     shortcutPath = QStandardPaths::writableLocation(QStandardPaths::ApplicationsLocation) + "/Startup/Line.lnk";
+
+    int idDotMatrix = QFontDatabase::addApplicationFont(":/fonts/Dot-Matrix.ttf");
+    int idNTypeRegular    = QFontDatabase::addApplicationFont(":/fonts/NType82-Regular.otf");
+    if (idDotMatrix < 0 || idNTypeRegular < 0) {
+        qDebug() << "Failed to load fonts from resources!";
+    } else {
+        qDebug() << "Fonts successfully loaded!";
+    }
+
+    QStringList dotMatrixFamilies = QFontDatabase::applicationFontFamilies(idDotMatrix);
+    QStringList ntypeRegularFamilies = QFontDatabase::applicationFontFamilies(idNTypeRegular);
+
+    if (!dotMatrixFamilies.isEmpty()) {
+        QFont dotMatrix(dotMatrixFamilies.at(0), 10);
+
+        ui->configButton->setFont(dotMatrix);
+        ui->connectButton->setFont(dotMatrix);
+        ui->autoStartCheckBox->setFont(dotMatrix);
+    }
+
+    if (!ntypeRegularFamilies.isEmpty()) {
+        QFont ntypeRegular(ntypeRegularFamilies.at(0), 50);
+        ui->titleLable->setFont(ntypeRegular);
+    }
 
     createTrayIcon();
 
@@ -83,14 +107,6 @@ void MainWindow::runWinws()
 {
     winwsProcess->start(winwsPath, winwsArgs);
     winwsProcess->waitForStarted();
-
-    // DEBUG ==============================
-    // connect(winwsProcess, &QProcess::readyReadStandardError, this, [&]() -> void {
-    //     qDebug() << winwsProcess->readAllStandardError();
-    // });
-    // connect(winwsProcess, &QProcess::finished, this, [](int exitCode, QProcess::ExitStatus exitStatus) -> void {
-    //     qDebug() << exitCode;
-    // });
 }
 
 void findAndKillProcess(QString target)
@@ -118,10 +134,12 @@ void MainWindow::on_connectButton_clicked()
     if (winwsProcess->isOpen())
     {
         ui->connectButton->setText("Connect");
+        trayIconMenu->actions().at(0)->setText("Подключиться");
         MainWindow::stopWinws();
     } else {
         findAndKillProcess("winws.exe");
         ui->connectButton->setText("Connected");
+        trayIconMenu->actions().at(0)->setText("Отключиться");
         MainWindow::runWinws();
     }
 }
@@ -158,7 +176,23 @@ void MainWindow::createTrayIcon()
 {
     trayIconMenu = new QMenu();
     QAction *restoreAction = new QAction("Развернуть", this);
+    QAction *switchConnectionAction = new QAction("Подключиться", this);
     QAction *quitAction = new QAction("Закрыть", this);
+
+    connect(switchConnectionAction, &QAction::triggered, this, [this, switchConnectionAction]() -> void {
+        QString text;
+        if (winwsProcess->isOpen()) {
+            text = "Подключиться";
+            ui->connectButton->setText("Connect");
+            stopWinws();
+        } else {
+            text = "Отключиться";
+            ui->connectButton->setText("Connected");
+            runWinws();
+        }
+
+        switchConnectionAction->setText(text);
+    });
 
     connect(restoreAction, &QAction::triggered, this, [this]() -> void {
         closeFromTray = false;
@@ -169,6 +203,7 @@ void MainWindow::createTrayIcon()
         QApplication::quit();
     });
 
+    trayIconMenu->addAction(switchConnectionAction);
     trayIconMenu->addAction(restoreAction);
     trayIconMenu->addAction(quitAction);
 

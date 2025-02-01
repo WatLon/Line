@@ -16,6 +16,7 @@
 #include <QProcess>
 #include <QTimer>
 
+#include <QFontDatabase>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

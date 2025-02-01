@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>assets/bloom.png</file>
+        <file>fonts/Dot-Matrix.ttf</file>
+        <file>fonts/NType82-Regular.otf</file>
     </qresource>
 </RCC>

@@ -224,14 +224,14 @@ color: white;</string>
       <property name="font">
        <font>
         <family>LED Dot-Matrix</family>
-        <pointsize>32</pointsize>
+        <pointsize>-1</pointsize>
        </font>
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
       </property>
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(75, 75, 75); color: white; border-radius: 15px; padding: 10px;</string>
+       <string notr="true">background-color: rgb(75, 75, 75); color: white; border-radius: 15px; padding: 10px; font-size: 40px;</string>
       </property>
       <property name="text">
        <string>CONNECT</string>
@@ -261,7 +261,7 @@ color: white;</string>
       <property name="font">
        <font>
         <family>LED Dot-Matrix</family>
-        <pointsize>24</pointsize>
+        <pointsize>-1</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -277,6 +277,7 @@ color: white;</string>
        <string notr="true">QCheckBox {
     color: white;
     spacing: 5px;
+	font-size: 40px;
 }
 
 QCheckBox::indicator {
@@ -332,7 +333,7 @@ QCheckBox::indicator:checked {
       <property name="font">
        <font>
         <family>LED Dot-Matrix</family>
-        <pointsize>20</pointsize>
+        <pointsize>-1</pointsize>
        </font>
       </property>
       <property name="cursor">
@@ -343,7 +344,7 @@ QCheckBox::indicator:checked {
 color: white;
 border: 2px dashed white;
 border-radius: 7px;
-</string>
+font-size: 30px;</string>
       </property>
       <property name="text">
        <string>Choose Config File</string>
